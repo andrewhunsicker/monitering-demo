@@ -1,30 +1,24 @@
-const express = require(`express`)
+const express = require('express')
 const path = require('path')
 
-const app = express()
-
 // include and initialize the rollbar library with your access token
-const Rollbar = require('rollbar')
+const Rollbar = require("rollbar");
 const rollbar = new Rollbar({
-  accessToken: 'd214e1ef982b4cb4a0176495826c4a43',
+  accessToken: 'd557f6679fdc4cd1a513d7637809e261',
   captureUncaught: true,
-  captureUnhandledRejections: true,
-})
+  captureUnhandledRejections: true
+});
 
 // record a generic message and send it to Rollbar
-rollbar.log('Hello world!')
+rollbar.log("Hello world!");
+
+const app = express()
 
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))
-    rollbar.info(`file served`)
 })
-
-// app.get('/style', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/styles.css'))
-//     rollbar.info(`css file served`)
-// })
 
 app.use(express.static(path.join(__dirname, '../public')))
 
