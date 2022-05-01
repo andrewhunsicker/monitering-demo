@@ -18,6 +18,12 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))
+    rollbar.info(`file served`)
+})
+
+app.get('/style', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/styles.css'))
+    rollbar.info(`css file served`)
 })
 
 app.use(express.static(path.join(__dirname, '../public')))
